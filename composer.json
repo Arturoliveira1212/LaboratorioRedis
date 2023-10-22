@@ -2,7 +2,7 @@
     "name": "artur/laboratorio-redis",
     "autoload": {
         "psr-4": {
-            "Artur\\LaboratorioRedis\\": "src/"
+            "LaboratorioRedis\\": "src/"
         }
     },
     "require": {
