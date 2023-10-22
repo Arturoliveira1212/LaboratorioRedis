@@ -1,0 +1,11 @@
+{
+    "name": "artur/laboratorio-redis",
+    "autoload": {
+        "psr-4": {
+            "Artur\\LaboratorioRedis\\": "src/"
+        }
+    },
+    "require": {
+        "predis/predis": "^2.2"
+    }
+}
