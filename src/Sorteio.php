@@ -5,7 +5,7 @@ namespace LaboratorioRedis;
 class Sorteio {
     private int $id = 0;
     private string $data = "";
-    private array $numeros = array();
+    private string $numeros = "";
     private int $ganhadores = 0;
 
     public function __construct( int $id, string $data ){
@@ -31,11 +31,11 @@ class Sorteio {
         $this->data = $data;
     }
 
-    public function getNumeros() :array {
+    public function getNumeros() :string {
         return $this->numeros;
     }
 
-    public function setNumeros( array $numeros ){
+    public function setNumeros( string $numeros ){
         $this->numeros = $numeros;
     }
 
@@ -50,12 +50,17 @@ class Sorteio {
     /**
      * Método responsável por gerar um sorteio de número aleatórios de 1 a 60
      *
-     * @return array
+     * @return string
      */
     public function gerarNumerosSorteados(){
         $numerosSorteados = array();
 
-        return $numerosSorteados;
+        for( $i = 0; $i < 6; $i++ ){
+            $numeroAleatorio = rand( 1, 60 );
+            $numerosSorteados[] = $numeroAleatorio;
+        }
+
+        return implode( ",", $numerosSorteados );
     }
 
     /**
@@ -64,8 +69,19 @@ class Sorteio {
      * @return integer
      */
     public function gerarNumeroGanhadores(){
-        $numeroGanhadores = 0;
-
-        return $numeroGanhadores;
+        return rand( 1, 20 );
     }
+
+    /**
+     * Método responsável por retornar chave formatada para cadastro no Redis
+     * Exemplo: 1:resultado:2023-10-10:megasena ganhadores 3 numeros "1111"
+     *
+     * @return string
+     */
+    public function obterChaveFormatadaParaCadastroNoRedis(){
+        return "{$this->getId()}:resultado:{$this->getData()}:megasena";
+        // return "{$this->getId()}:resultado:{$this->getData()}:megasena ganhadores {$this->gerarNumeroGanhadores()} numeros {$this->gerarNumerosSorteados()}";
+    }
+
+
 }
