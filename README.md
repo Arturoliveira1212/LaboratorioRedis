@@ -9,8 +9,9 @@ Este repositório contém um sistema de sorteios(hipotéticos) da MegaSena que s
 
 
 ### Linguagem e ferramentas utilizadas
-- **PHP** - para o desenvolvimento do sistema
-- **REDIS** - Banco de Dados Chave-Valor para armazenamento dos resultados dos sorteios
+- **PHP** - para o desenvolvimento do sistema.
+- **PREDIS/PREDIS** - utilizado para realizar as ações do Redis no PHP.
+- **REDIS** - Banco de Dados Chave-Valor para armazenamento dos resultados dos sorteios.
 
 
 ## Começando
@@ -26,5 +27,5 @@ Distribuído sob a Licença MIT.
 
 ## Desenvolvedores
 
-- GitHub: [Artur Oliveira](https://github.com/Arturoliveira1212)
-- GitHub: [Maria Clara Monteiro](https://github.com/mariaclaramonteirop)
+- [Artur Alves](https://github.com/Arturoliveira1212)
+- [Maria Clara Monteiro](https://github.com/mariaclaramonteirop)
