@@ -8,11 +8,11 @@ class Sorteio {
     private string $numeros = "";
     private int $ganhadores = 0;
 
-    public function __construct( int $id, string $data ){
+    public function __construct( int $id, string $data, string $numeros, int $ganhadores ){
         $this->setId( $id );
         $this->setData( $data );
-        $this->setNumeros(  $this->gerarNumerosSorteados() );
-        $this->setGanhadores( $this->gerarNumeroGanhadores() );
+        $this->setNumeros( $numeros );
+        $this->setGanhadores( $ganhadores );
     }
 
     public function getId() :int {
@@ -48,40 +48,39 @@ class Sorteio {
     }
 
     /**
-     * Método responsável por gerar um sorteio de número aleatórios de 1 a 60
-     *
-     * @return string
-     */
-    public function gerarNumerosSorteados(){
-        $numerosSorteados = array();
-
-        for( $i = 0; $i < 6; $i++ ){
-            $numeroAleatorio = rand( 1, 60 );
-            $numerosSorteados[] = $numeroAleatorio;
-        }
-
-        return implode( ",", $numerosSorteados );
-    }
-
-    /**
-     * Método responsável por gerar um número de ganhadores aleatórios de 0 a 20
-     *
-     * @return integer
-     */
-    public function gerarNumeroGanhadores(){
-        return rand( 1, 20 );
-    }
-
-    /**
      * Método responsável por retornar chave formatada para cadastro no Redis
-     * Exemplo: 1:resultado:2023-10-10:megasena ganhadores 3 numeros "1111"
+     * Exemplo: 1:resultado:2023-10-10:megasena
      *
      * @return string
      */
-    public function obterChaveFormatadaParaCadastroNoRedis(){
+    public function obterChaveFormatadaParaCadastroNoRedis() :string {
         return "{$this->getId()}:resultado:{$this->getData()}:megasena";
-        // return "{$this->getId()}:resultado:{$this->getData()}:megasena ganhadores {$this->gerarNumeroGanhadores()} numeros {$this->gerarNumerosSorteados()}";
     }
 
+    /**
+     * Método responsável por retornar o valor formatado para cadastro no Redis
+     * Exemplo: '{ "numeros" : "2, 3 , 4, 5", "ganhadores" : 10 }'
+     * @return string
+     */
+    public function obterValorFormatadoParaCadastroNoRedis() :string {
+        return '{ "numeros" : "' . $this->getNumeros() . '", "ganhadores" : ' . $this->getGanhadores() . ' }';
+    }
 
+    /**
+     * Método responsável por exibir o sorteio usando HTML.
+     *
+     * @return void
+     */
+    public function exibirSorteio() :void {
+        $conteudo = <<<HTML
+            <h1>Sorteio - {$this->getData()}</h1>
+            <ul>
+                <li>Número: {$this->getId()}</li>
+                <li>Números sorteados: {$this->getNumeros()}</li>
+                <li>Número de ganhadores: {$this->getGanhadores()}</li>
+            </ul>
+        HTML;
+
+        echo $conteudo;
+    }
 }
